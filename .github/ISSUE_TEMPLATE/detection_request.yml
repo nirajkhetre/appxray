@@ -1,0 +1,22 @@
+name: Missing app or runtime
+description: An app with embedded Chromium is not found
+labels: [detection]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: App name and version
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Install location
+      placeholder: C:\Users\<you>\AppData\Local\Programs\Example
+    validations:
+      required: true
+  - type: textarea
+    id: listing
+    attributes:
+      label: Folder listing
+      description: The file and folder names in the install folder (`dir` or `ls -la`)

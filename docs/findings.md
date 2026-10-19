@@ -1,0 +1,27 @@
+# Findings
+
+Every finding has a rule ID, a severity, a confidence level, a title, a detail and
+references. Severities, from highest to lowest, are `critical`, `high`, `medium`, `low` and `info`.
+
+| Rule                                  | Severity                            | Meaning                                                                                                                   | What to do                                                                                    |
+| ------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `chromium/known-exploited`            | critical (Electron), high (Qt, CEF) | The embedded Chromium lacks fixes for vulnerabilities in CISA's KEV catalog, and no backport was found.                   | Update the app now. If it is current, contact the vendor.                                     |
+| `electron/end-of-life`                | high                                | The Electron major line no longer receives security fixes.                                                                | Update the app, or ask the vendor to move to a supported Electron line.                       |
+| `electron/advisories`                 | that of the worst advisory          | The Electron version is in the affected range of GitHub security advisories.                                              | Update the app.                                                                               |
+| `electron/outdated`                   | medium                              | Newer patch releases of the same Electron line exist.                                                                     | Update the app when the vendor ships one.                                                     |
+| `chromium/known-exploited-unverified` | medium, low confidence              | The Chromium is older than KEV fixes, but a backport cannot be confirmed or excluded.                                     | Check the vendor's release notes, or run `db update` with release notes.                      |
+| `fuse/run-as-node`                    | low                                 | `ELECTRON_RUN_AS_NODE` turns the signed app into a Node.js runtime, which can be used to bypass application allowlisting. | For app vendors: disable the fuse unless the app needs it. Defenders: watch for the variable. |
+| `fuse/node-options`                   | low                                 | `NODE_OPTIONS` can preload code into the app.                                                                             | For app vendors: disable the fuse.                                                            |
+| `fuse/inspect-arguments`              | low                                 | `--inspect` flags attach a debugger to the main process.                                                                  | For app vendors: disable the fuse.                                                            |
+| `fuse/asar-integrity-disabled`        | info                                | app.asar is not verified at startup (Windows builds).                                                                     | For app vendors: enable ASAR integrity.                                                       |
+| `fuse/load-outside-asar`              | info                                | Electron also looks for app code outside app.asar.                                                                        | For app vendors: enable `OnlyLoadAppFromAsar`.                                                |
+| `electron/unknown-version`            | info                                | The version is not in the database. It may be a custom build or newer than the data.                                      | Run `db update`.                                                                              |
+| `runtime/version-unreadable`          | info                                | A runtime was detected but its version string was not found.                                                              | Please report it with the app name.                                                           |
+
+## Confidence
+
+- **high**: based on direct evidence. Examples: the version is in an advisory's range, or
+  release notes for the app's Electron line were checked and contain no backport.
+- **medium**: based on a sound inference. Examples: the CVE was published after this Electron
+  release, or a Qt/CEF Chromium level is compared without vendor release notes.
+- **low**: cannot be decided with the available data.

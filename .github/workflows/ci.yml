@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }}, Node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run test:coverage
+      - run: npm run build
+      - name: Smoke test the CLI
+        run: |
+          node dist/cli.js --version
+          node dist/cli.js db info
+      # Scans the runner image itself: exercises real registry and filesystem discovery.
+      - name: Scan this runner
+        run: node dist/cli.js scan --format json --output runner-scan.json --redact-paths
+      - name: Show runner scan
+        run: node dist/cli.js scan --min-severity info --no-color --redact-paths
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: runner-scan-${{ matrix.os }}-node${{ matrix.node }}
+          path: runner-scan.json
+          if-no-files-found: ignore
+
+  real-binaries:
+    name: Real Electron builds (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Download official Electron releases
+        run: node scripts/fetch-real-fixtures.mjs ${{ runner.temp }}/real
+      - name: Detect versions and fuses in real binaries
+        run: npm run test:real
+        env:
+          APPXRAY_REAL_FIXTURES: ${{ runner.temp }}/real
+      - name: End-of-life Electron must fail --fail-on high
+        shell: bash
+        run: |
+          set +e
+          node dist/cli.js inspect "${{ runner.temp }}/real" --fail-on high --no-color
+          code=$?
+          set -e
+          test "$code" -eq 1
