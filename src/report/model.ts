@@ -67,6 +67,7 @@ function redactApp(app: AnalyzedApp, home: string): AnalyzedApp {
     ...app,
     root: redact(app.root, home),
     binary: redact(app.binary, home),
+    ...(app.appBundle ? { appBundle: redact(app.appBundle, home) } : {}),
     otherCopies: app.otherCopies.map((copy) => redact(copy, home)),
     notes: app.notes.map((note) => redact(note, home)),
   };
@@ -148,4 +149,22 @@ export function runtimeLabel(app: AnalyzedApp): string {
     case 'qtwebengine':
       return `Qt WebEngine${chromium}`;
   }
+}
+
+/** One-line summary of what REA's code analysis saw, for the text and HTML reports. */
+export function deepSummary(app: AnalyzedApp): string | undefined {
+  const deep = app.deep;
+  if (!deep) return undefined;
+  const seconds = (deep.durationMs / 1000).toFixed(1);
+  const files = Object.keys(deep.analyzedFiles).length;
+  const head = `REA ${deep.engine.version} analyzed ${files} ${files === 1 ? 'file' : 'files'} in ${seconds}s`;
+  const posture = deep.posture;
+  if (!posture) return `${head}: ${deep.error ?? 'no result'}`;
+  const members = posture.bridges.reduce((sum, bridge) => sum + bridge.members.length, 0);
+  const remote = posture.content.filter((content) => content.remote).length;
+  return (
+    `${head}: ${posture.windows.length} windows, ${posture.bridges.length} preload bridges ` +
+    `(${members} exposed functions), ${posture.mainHandlers.length} IPC handlers, ` +
+    `${remote} remote URLs, ${posture.nativeAddons.length} native add-ons`
+  );
 }

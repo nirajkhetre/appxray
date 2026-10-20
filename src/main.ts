@@ -4,6 +4,7 @@ import { parseArgs, type ParseArgsConfig } from 'node:util';
 
 import { parseSeverity, severityRank, type Severity } from './analysis/types.js';
 import { runAudit } from './commands/audit.js';
+import { formatDiffText, runDiff } from './commands/diff.js';
 import { buildDb } from './db/build.js';
 import { cachedDbPath, dbAgeDays, loadDb, saveDb, STALE_AFTER_DAYS } from './db/load.js';
 import { UnsupportedPlatformError } from './discovery/index.js';
@@ -31,6 +32,8 @@ const HELP = `appxray - find desktop apps that ship outdated or vulnerable embed
 Usage:
   appxray [scan] [options]          Scan this computer's installed apps (Windows, Linux)
   appxray inspect <path>... [opts]  Check specific app folders, build outputs or binaries
+  appxray diff <old> <new> [opts]   Compare two builds of an app: runtime, fuses, findings and,
+                                    with --deep, the attack surface found by REA
   appxray db update [--output f]    Rebuild the vulnerability database from public sources
   appxray db info [--db f]          Show which database is used and how fresh it is
 
@@ -53,8 +56,10 @@ General:
       --db <file>                      Use this database file
       --no-hash                        Skip SHA-256 hashing of runtime binaries
       --concurrency <n>                Binaries inspected in parallel (default 2)
-      --deep                           Cross-check Electron fuses with REA (if installed)
-      --rea <path>                     Path to the REA executable or rea.mjs
+      --deep                           Analyze each Electron app's code with REA: window settings,
+                                       preload bridges, IPC handlers, command execution paths
+      --deep-timeout <seconds>         Time limit for REA per app (default 300)
+      --rea <path>                     Use this REA executable or rea.mjs instead of the bundled one
       --rea-allow-untested             Use a REA version outside the tested range
   -q, --quiet                          Only print the report and errors
   -v, --verbose                        Print debug information
@@ -80,6 +85,7 @@ const OPTIONS = {
   hash: { type: 'boolean' },
   concurrency: { type: 'string' },
   deep: { type: 'boolean' },
+  'deep-timeout': { type: 'string' },
   rea: { type: 'string' },
   'rea-allow-untested': { type: 'boolean' },
   quiet: { type: 'boolean', short: 'q' },
@@ -143,6 +149,55 @@ async function emit(text: string, output: string | undefined): Promise<void> {
   else process.stdout.write(text);
 }
 
+/** Options shared by scan, inspect and diff. */
+function commonAuditOptions(values: Values, logger: Logger, signal: AbortSignal) {
+  return {
+    allUsers: values['all-users'] ?? false,
+    extraRoots: values.root ?? [],
+    defaultRoots: values['default-roots'] ?? true,
+    ...(values['max-dirs']
+      ? { maxDirectories: positiveInt(values['max-dirs'], '--max-dirs') as number }
+      : {}),
+    ...(values.db ? { dbPath: values.db } : {}),
+    hash: values.hash ?? true,
+    concurrency: positiveInt(values.concurrency, '--concurrency') ?? 2,
+    redactPaths: values['redact-paths'] ?? false,
+    ...(values.deep
+      ? {
+          deep: {
+            ...(values.rea ? { reaPath: values.rea } : {}),
+            allowUntested: values['rea-allow-untested'] ?? false,
+            timeoutMs: (positiveInt(values['deep-timeout'], '--deep-timeout') ?? 300) * 1000,
+          },
+        }
+      : {}),
+    logger,
+    signal,
+  };
+}
+
+async function diffCommand(paths: string[], values: Values, logger: Logger, signal: AbortSignal) {
+  if (paths.length !== 2) throw new UsageError('diff needs exactly two paths: <old> <new>');
+  const format = values.format ?? 'text';
+  if (format !== 'text' && format !== 'json')
+    throw new UsageError('diff supports --format text or json');
+  const failOn = severityOption(values['fail-on'], '--fail-on');
+  const diff = await runDiff(
+    paths[0] as string,
+    paths[1] as string,
+    commonAuditOptions(values, logger, signal),
+  );
+  await emit(
+    format === 'json' ? `${JSON.stringify(diff, null, 2)}\n` : formatDiffText(diff),
+    values.output,
+  );
+  const introduced = [...diff.findings.added, ...diff.findings.changed.map((change) => change.to)];
+  return failOn &&
+    introduced.some((finding) => severityRank(finding.severity) >= severityRank(failOn))
+    ? EXIT.findings
+    : EXIT.ok;
+}
+
 async function auditCommand(
   mode: 'scan' | 'inspect',
   paths: string[],
@@ -164,27 +219,8 @@ async function auditCommand(
   const report = await runAudit({
     mode,
     paths,
-    allUsers: values['all-users'] ?? false,
-    extraRoots: values.root ?? [],
-    defaultRoots: values['default-roots'] ?? true,
-    ...(values['max-dirs']
-      ? { maxDirectories: positiveInt(values['max-dirs'], '--max-dirs') as number }
-      : {}),
-    ...(values.db ? { dbPath: values.db } : {}),
+    ...commonAuditOptions(values, logger, signal),
     minSeverity,
-    hash: values.hash ?? true,
-    concurrency: positiveInt(values.concurrency, '--concurrency') ?? 2,
-    redactPaths: values['redact-paths'] ?? false,
-    ...(values.deep
-      ? {
-          deep: {
-            ...(values.rea ? { reaPath: values.rea } : {}),
-            allowUntested: values['rea-allow-untested'] ?? false,
-          },
-        }
-      : {}),
-    logger,
-    signal,
   });
 
   const color =
@@ -267,6 +303,8 @@ export async function main(argv: string[]): Promise<number> {
         return await auditCommand('scan', [], values, logger, controller.signal);
       case 'inspect':
         return await auditCommand('inspect', rest, values, logger, controller.signal);
+      case 'diff':
+        return await diffCommand(rest, values, logger, controller.signal);
       case 'db':
         return await dbCommand(rest[0], values, logger);
       default:

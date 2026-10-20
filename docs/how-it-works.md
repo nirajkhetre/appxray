@@ -91,10 +91,40 @@ Reports are available as text, JSON (`docs/report-format.md`), SARIF 2.1.0 (for 
 code scanning) and a self-contained HTML file with a strict Content-Security-Policy and no
 scripts. `--redact-paths` replaces the home folder with `~` for sharing.
 
-## Optional: REA cross-check
+## 5. Deep analysis with REA (`--deep`)
 
-With `--deep`, appxray runs `rea inspect-electron-fuses <binary> --json` for each Electron app
-and records whether REA's independent reading agrees. All REA calls go through
-`src/rea/adapter.ts`. REA versions outside `REA_TESTED_RANGE` are refused by default, and
-`test/unit/rea.test.ts` checks the parser against real REA 6.7.0 output. A REA upgrade therefore
-fails a test instead of silently changing results.
+For each Electron app, appxray hands the code that defines its security boundary to
+[REA](https://github.com/morluto/rea) and turns REA's evidence into findings.
+
+1. **Select** (`src/deep/select.ts`). appxray opens `app.asar` (or `resources/app/`) without
+   extracting it, scores every JavaScript file outside `node_modules`, and keeps the
+   `package.json` main entry plus files with Electron boundary code (`webPreferences`,
+   `contextBridge`, `ipcMain`, `new BrowserWindow`). VS Code, for example, ships about 1,500
+   JavaScript files; this step picks about 5 of them. That makes a full REA run of several
+   minutes into seconds.
+2. **Analyze.** `rea analyze-javascript-application <app> --source-path <file>...` statically
+   reconstructs windows and their `webPreferences`, renderer content (`loadURL`/`loadFile`),
+   `contextBridge` APIs, IPC channels and handlers, process creation, endpoints and native add-ons,
+   with a source location for each.
+3. **Model** (`src/deep/posture.ts`). REA's evidence is parsed defensively into an Electron
+   posture. Attack paths are linked: an exposed bridge function → its literal IPC channel → the
+   main-process handler for that channel → a `child_process` call inside that handler's body.
+4. **Judge** (`src/analysis/deep.ts`). Insecure settings are flagged when set explicitly, or
+   when omitted while the app's Electron version still had an insecure default and every option
+   was visible: `nodeIntegration` before 5, `contextIsolation` before 12, `sandbox` before 20.
+   Severity rises when the app loads remote `http(s)` content, because that is when a page can be
+   hostile. Gaps such as minified bundles, parse failures, the time limit or unresolved window
+   options become a `deep/limited-coverage` finding.
+
+`appxray diff` runs the same pipeline on two builds and compares versions, fuses, findings and
+the REA attack surface (exposed functions, IPC handlers, remote content, native add-ons, command
+execution paths, insecure settings). A severity-weighted risk score gives the verdict.
+
+### The REA contract
+
+All REA calls go through `src/rea/`. REA is an exact-pinned optional dependency, versions
+outside `REA_TESTED_RANGE` are refused by default, and output is validated before use.
+`test/integration/rea-real.test.ts` runs the real pinned REA in CI against
+`test/fixtures/apps/insecure-electron`. `test/unit/rea.test.ts` and `test/unit/deep.test.ts`
+pin parsers to recorded REA 6.7.0 output. A REA upgrade that changes behavior fails these tests
+instead of silently changing results.

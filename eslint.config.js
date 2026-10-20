@@ -3,7 +3,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist/', 'coverage/', 'data/', 'node_modules/'] },
+  { ignores: ['dist/', 'coverage/', 'data/', 'node_modules/', 'test/fixtures/apps/'] },
   js.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   {
@@ -27,6 +27,8 @@ export default tseslint.config(
     files: ['test/**/*.ts'],
     rules: {
       '@typescript-eslint/no-non-null-assertion': 'off',
+      // Vitest's asymmetric matchers (expect.objectContaining, ...) are typed as any.
+      '@typescript-eslint/no-unsafe-assignment': 'off',
     },
   },
   {

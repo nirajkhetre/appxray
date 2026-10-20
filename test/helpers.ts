@@ -38,22 +38,40 @@ export function fakeBinary(options: FakeBinaryOptions): Buffer {
   return Buffer.concat(parts);
 }
 
-/** Builds an ASAR archive in the format written by @electron/asar. */
+interface AsarNode {
+  files?: Record<string, AsarNode>;
+  size?: number;
+  offset?: string;
+  unpacked?: boolean;
+}
+
+/**
+ * Builds an ASAR archive in the format written by @electron/asar. Keys may contain "/" for
+ * nested folders.
+ */
 export function buildAsar(files: Record<string, string>, unpacked: readonly string[] = []): Buffer {
-  const entries: Record<string, { size: number; offset?: string; unpacked?: boolean }> = {};
+  const root: AsarNode = { files: {} };
   const data: Buffer[] = [];
   let offset = 0;
   for (const [name, content] of Object.entries(files)) {
+    const parts = name.split('/');
+    let node = root;
+    for (const dir of parts.slice(0, -1)) {
+      node.files ??= {};
+      node = node.files[dir] ??= { files: {} };
+    }
+    node.files ??= {};
     const bytes = Buffer.from(content, 'utf8');
+    const leaf = parts[parts.length - 1] as string;
     if (unpacked.includes(name)) {
-      entries[name] = { size: bytes.length, unpacked: true };
+      node.files[leaf] = { size: bytes.length, unpacked: true };
       continue;
     }
-    entries[name] = { size: bytes.length, offset: String(offset) };
+    node.files[leaf] = { size: bytes.length, offset: String(offset) };
     data.push(bytes);
     offset += bytes.length;
   }
-  const json = Buffer.from(JSON.stringify({ files: entries }), 'utf8');
+  const json = Buffer.from(JSON.stringify(root), 'utf8');
   const padded = Math.ceil(json.length / 4) * 4;
   const header = Buffer.alloc(8 + padded);
   header.writeUInt32LE(4 + padded, 0);

@@ -7,6 +7,10 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: development
+    # REA upgrades arrive as their own pull request. CI runs the real-REA contract test on them;
+    # REA_TESTED_RANGE in src/rea/runner.ts must be raised deliberately after reviewing changes.
+    allow:
+      - dependency-type: all
   - package-ecosystem: github-actions
     directory: /
     schedule:

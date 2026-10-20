@@ -1,0 +1,2105 @@
+{
+ "evidence_id": "ev_ab0d962ec63c8f8ee6810480c6d002739b80d62485957fa5a53b2fa8af0874bc",
+ "operation": "analyze_javascript_application",
+ "provider": {
+  "id": "rea-javascript-application",
+  "name": "REA JavaScript application analyzer",
+  "version": "1"
+ },
+ "normalized_result": {
+  "format": "asar",
+  "graph": {
+   "nodes": [
+    {
+     "node_id": "jag_node_27be070ab315dec36b745329f54a41e19451715fb245c3da9840e4cbf91723ef",
+     "kind": "ipc-channel",
+     "identity": {
+      "strategy": "observation-fingerprint",
+      "stability": "observation-only",
+      "observation_sha256": "616c8cc5dcf24f9974503487eeecbf14f3be5c80e55c0c3213b617cfd39e4137",
+      "scope": "electron-ipc-channel"
+     },
+     "observations": [
+      {
+       "label": "run-command",
+       "source_map_reference": null,
+       "properties": {
+        "side": "main",
+        "operation": "handle",
+        "mode": "handle",
+        "channel": "run-command",
+        "channel_expression": null,
+        "resolution": "literal"
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 20,
+           "column": 0
+          },
+          "end": {
+           "line": 20,
+           "column": 97
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-ipc-channel-expression",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_481fe410cb5de7d7eb39001366437577097a0c294def1f08e98fa3f32f07986a",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      },
+      {
+       "label": "run-command",
+       "source_map_reference": null,
+       "properties": {
+        "side": "renderer",
+        "operation": "invoke",
+        "mode": "invoke",
+        "channel": "run-command",
+        "channel_expression": null,
+        "resolution": "literal"
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+         "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "preload.js",
+          "start": {
+           "line": 3,
+           "column": 16
+          },
+          "end": {
+           "line": 3,
+           "column": 54
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-ipc-channel-expression",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_7faaf6bbe242d19b7bb8b5ca4e6445a38b08215f8b11ea807d81a7c86ccd127d",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_28acf7e210928ca4378625c9e881b61ffdcf22738a61d2955fd103fa79edea37",
+     "kind": "electron-renderer",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-role",
+      "key": "electron-renderer:filesystem-expression:index.html"
+     },
+     "observations": [
+      {
+       "label": "index.html",
+       "source_map_reference": null,
+       "properties": {
+        "declared_path": "index.html",
+        "resolution_context": "filesystem-expression",
+        "resolved_path": "index.html",
+        "resolution_status": "resolved",
+        "limitations": [],
+        "mechanism": "call:safe.loadFile"
+       },
+       "evidence": {
+        "authority": "static-relationship-inference",
+        "state": "inferred",
+        "confidence": "high",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 18,
+           "column": 2
+          },
+          "end": {
+           "line": 18,
+           "column": 29
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-electron-entrypoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Static syntax does not prove that this relationship executes at runtime."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_16e63a20813edd4e6166e8c5c33484ca60a3c5117fac874ab3c99e566a2a0f3f",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_7a574b0f9333a087d9d9aaecbcedf05f0bef8ec514160ddff7498d72df2ada6e",
+     "kind": "ipc-channel",
+     "identity": {
+      "strategy": "observation-fingerprint",
+      "stability": "observation-only",
+      "observation_sha256": "6970971f3fa122e30ddc4a246d8b52f2af7c06356d7d07ff45b47e34e02bf789",
+      "scope": "electron-ipc-channel"
+     },
+     "observations": [
+      {
+       "label": "open-link",
+       "source_map_reference": null,
+       "properties": {
+        "side": "main",
+        "operation": "on",
+        "mode": "listen",
+        "channel": "open-link",
+        "channel_expression": null,
+        "resolution": "literal"
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 21,
+           "column": 0
+          },
+          "end": {
+           "line": 21,
+           "column": 65
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-ipc-channel-expression",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_aab97a0d9e160042c45ccad9c20a683f5df08ad7373e1d2206574aa2a60da54e",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      },
+      {
+       "label": "open-link",
+       "source_map_reference": null,
+       "properties": {
+        "side": "renderer",
+        "operation": "send",
+        "mode": "send",
+        "channel": "open-link",
+        "channel_expression": null,
+        "resolution": "literal"
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+         "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "preload.js",
+          "start": {
+           "line": 4,
+           "column": 17
+          },
+          "end": {
+           "line": 4,
+           "column": 51
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-ipc-channel-expression",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_bba8706f130fb1512530d1674c70cbbfbbf3431576870f102394627b3764196c",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_9288091733ff005f42c9e98eb0e526f07469ff5855ace7c623f1e6cc78f88efd",
+     "kind": "browser-window",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-browser-window",
+      "key": "5:14-15:4"
+     },
+     "observations": [
+      {
+       "label": "BrowserWindow@5:14-15:4",
+       "source_map_reference": null,
+       "properties": {
+        "source_path": "main.js",
+        "options_status": "object-literal",
+        "web_preferences_status": "object-literal",
+        "web_preferences": [
+         {
+          "name": "contextIsolation",
+          "value": {
+           "status": "literal",
+           "value": false,
+           "expression": null
+          }
+         },
+         {
+          "name": "nodeIntegration",
+          "value": {
+           "status": "literal",
+           "value": true,
+           "expression": null
+          }
+         },
+         {
+          "name": "preload",
+          "value": {
+           "status": "literal",
+           "value": "preload.js",
+           "expression": null
+          }
+         },
+         {
+          "name": "sandbox",
+          "value": {
+           "status": "literal",
+           "value": false,
+           "expression": null
+          }
+         },
+         {
+          "name": "webSecurity",
+          "value": {
+           "status": "literal",
+           "value": false,
+           "expression": null
+          }
+         }
+        ],
+        "preload_path": "preload.js",
+        "preload_resolution_context": "filesystem-expression",
+        "absence_means_default": false
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 5,
+           "column": 14
+          },
+          "end": {
+           "line": 15,
+           "column": 4
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-browser-window-construction",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Only explicitly present webPreferences are reported; omitted properties are not interpreted as Electron defaults."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_ce83bf802f6da918fc2be0dfbd668ba6e9244fa82a33794a6458a4a0c5fc5adb",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_9eaef056cdda528f3289e9ed72fd6403da4c3900ae7d32aa731456b1929af358",
+     "kind": "electron-preload",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-role",
+      "key": "electron-preload:filesystem-expression:preload.js"
+     },
+     "observations": [
+      {
+       "label": "preload.js",
+       "source_map_reference": null,
+       "properties": {
+        "declared_path": "preload.js",
+        "resolution_context": "filesystem-expression",
+        "resolved_path": "preload.js",
+        "resolution_status": "resolved",
+        "limitations": [],
+        "mechanism": "BrowserWindow:webPreferences.preload"
+       },
+       "evidence": {
+        "authority": "static-relationship-inference",
+        "state": "inferred",
+        "confidence": "high",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 5,
+           "column": 14
+          },
+          "end": {
+           "line": 15,
+           "column": 4
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-electron-entrypoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Static syntax does not prove that this relationship executes at runtime."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_097762b210078eaa21b37d511d0c66567b2c69920020ae119e94da4485239631",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      },
+      {
+       "label": "preload.js",
+       "source_map_reference": null,
+       "properties": {
+        "declared_path": "preload.js",
+        "resolution_context": "filesystem-expression",
+        "resolved_path": "preload.js",
+        "resolution_status": "resolved",
+        "limitations": [],
+        "mechanism": "BrowserWindow:webPreferences.preload"
+       },
+       "evidence": {
+        "authority": "static-relationship-inference",
+        "state": "inferred",
+        "confidence": "high",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 17,
+           "column": 15
+          },
+          "end": {
+           "line": 17,
+           "column": 101
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-electron-entrypoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Static syntax does not prove that this relationship executes at runtime."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_1fd52b603470e0fc29299e4f81d0e7a8f5556dc1895f84191151cc9031df368f",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      },
+      {
+       "label": "preload.js",
+       "source_map_reference": null,
+       "properties": {
+        "declared_path": "preload.js",
+        "resolution_context": "filesystem-expression",
+        "resolved_path": "preload.js",
+        "resolution_status": "resolved",
+        "limitations": [],
+        "mechanism": "property:preload"
+       },
+       "evidence": {
+        "authority": "static-relationship-inference",
+        "state": "inferred",
+        "confidence": "high",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 13,
+           "column": 6
+          },
+          "end": {
+           "line": 13,
+           "column": 49
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-electron-entrypoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Static syntax does not prove that this relationship executes at runtime."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_950b4044ff62b9f17159271c7db474946fa189fa97af3f417cccf9e2b002310e",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      },
+      {
+       "label": "preload.js",
+       "source_map_reference": null,
+       "properties": {
+        "declared_path": "preload.js",
+        "resolution_context": "filesystem-expression",
+        "resolved_path": "preload.js",
+        "resolution_status": "resolved",
+        "limitations": [],
+        "mechanism": "property:preload"
+       },
+       "evidence": {
+        "authority": "static-relationship-inference",
+        "state": "inferred",
+        "confidence": "high",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 17,
+           "column": 53
+          },
+          "end": {
+           "line": 17,
+           "column": 96
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-electron-entrypoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Static syntax does not prove that this relationship executes at runtime."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_c47369ebe2dbc7e4b58bc884b82ed44500f55a1d704a50b5b7554ec64b9a4c5f",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_a1a70264394cc896633183bbe63cb604d8155be150968cc24a2bed2d8a122d5f",
+     "kind": "ipc-handler",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-ipc-handler",
+      "key": "main:handle:run-command:20:30-20:96"
+     },
+     "observations": [
+      {
+       "label": "run-command",
+       "source_map_reference": null,
+       "properties": {
+        "side": "main",
+        "operation": "handle",
+        "mode": "handle",
+        "channel": "run-command",
+        "channel_expression": null,
+        "handler_kind": "inline-function",
+        "handler_location": {
+         "start": {
+          "line": 20,
+          "column": 30
+         },
+         "end": {
+          "line": 20,
+          "column": 96
+         }
+        }
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 20,
+           "column": 30
+          },
+          "end": {
+           "line": 20,
+           "column": 96
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-ipc-handler",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_13bcc000809235e53371a7ff98160a67833a2fb5829079f22ab376da72e6d2e3",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_a6826e5e9b08e2b6814d1ab7a434d187c34603113cf94bbcf9621ae13a6f5305",
+     "kind": "ipc-handler",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-ipc-handler",
+      "key": "main:on:open-link:21:24-21:64"
+     },
+     "observations": [
+      {
+       "label": "open-link",
+       "source_map_reference": null,
+       "properties": {
+        "side": "main",
+        "operation": "on",
+        "mode": "listen",
+        "channel": "open-link",
+        "channel_expression": null,
+        "handler_kind": "inline-function",
+        "handler_location": {
+         "start": {
+          "line": 21,
+          "column": 24
+         },
+         "end": {
+          "line": 21,
+          "column": 64
+         }
+        }
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 21,
+           "column": 24
+          },
+          "end": {
+           "line": 21,
+           "column": 64
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-ipc-handler",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_1651aa22803dfb391994277adcce8b81e66cce99037fc913c18e5816ebb6f039",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_b8cba4dbeae420666bbac8cfab56e8da43082ac905eae3d4a89a5639cc888747",
+     "kind": "electron-renderer",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-role",
+      "key": "electron-renderer:module-specifier:https://example.com/app"
+     },
+     "observations": [
+      {
+       "label": "https://example.com/app",
+       "source_map_reference": null,
+       "properties": {
+        "declared_path": "https://example.com/app",
+        "resolution_context": "module-specifier",
+        "resolved_path": null,
+        "resolution_status": "external",
+        "limitations": [
+         "Only file URLs can be mapped to selected local application artifacts."
+        ],
+        "mechanism": "call:win.loadURL"
+       },
+       "evidence": {
+        "authority": "static-relationship-inference",
+        "state": "inferred",
+        "confidence": "high",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 16,
+           "column": 2
+          },
+          "end": {
+           "line": 16,
+           "column": 40
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-electron-entrypoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Only file URLs can be mapped to selected local application artifacts.",
+         "Static syntax does not prove that this relationship executes at runtime."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_0e8e8c56b1076fa8b4733150569574530c645cc147bea0a5bf48f85495637326",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_daab0487bb4c64159c765cb2af09655e3db24f505c04789215e394e6325c7790",
+     "kind": "endpoint",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "network",
+      "key": "[\"literal\",\"https://example.com/app\"]"
+     },
+     "observations": [
+      {
+       "label": "network endpoint",
+       "source_map_reference": null,
+       "properties": {
+        "endpoint_kind": "network",
+        "value": "https://example.com/app",
+        "mechanism": "call:win.loadURL"
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 16,
+           "column": 2
+          },
+          "end": {
+           "line": 16,
+           "column": 40
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "discover-static-endpoint",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_3bd0988176be5d32d7d676218a3eaf077d7d7c135e14de29ee550e8d0168675f",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_e8ed1338b73249dfcc1c3ae78f059b2e05bac947674f0df3deb5021876ec69b1",
+     "kind": "context-bridge-api",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+      "namespace": "electron-context-bridge",
+      "key": "main:api:2:0-5:2"
+     },
+     "observations": [
+      {
+       "label": "api",
+       "source_map_reference": null,
+       "properties": {
+        "world": "main",
+        "world_id": null,
+        "api_key": "api",
+        "api_key_expression": null,
+        "api_status": "object-literal",
+        "members": [
+         "open",
+         "run"
+        ],
+        "unknown_members": 0,
+        "resolution_basis": "direct-syntax"
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+         "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "preload.js",
+          "start": {
+           "line": 2,
+           "column": 0
+          },
+          "end": {
+           "line": 5,
+           "column": 2
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-context-bridge-api",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_8546cbdb2d8f72d22440ebafb7e9fd080bc99eace2fbfa19beb7aa2ca638dfba",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    },
+    {
+     "node_id": "jag_node_f5d3a2d8c2e6bd8040ef52ec4106218a9b62012febc41ca4c1dc272cf21d99b7",
+     "kind": "browser-window",
+     "identity": {
+      "strategy": "artifact-local-key",
+      "stability": "artifact-version",
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "namespace": "electron-browser-window",
+      "key": "17:15-17:101"
+     },
+     "observations": [
+      {
+       "label": "BrowserWindow@17:15-17:101",
+       "source_map_reference": null,
+       "properties": {
+        "source_path": "main.js",
+        "options_status": "object-literal",
+        "web_preferences_status": "object-literal",
+        "web_preferences": [
+         {
+          "name": "preload",
+          "value": {
+           "status": "literal",
+           "value": "preload.js",
+           "expression": null
+          }
+         }
+        ],
+        "preload_path": "preload.js",
+        "preload_resolution_context": "filesystem-expression",
+        "absence_means_default": false
+       },
+       "evidence": {
+        "authority": "ast-static-analysis",
+        "state": "observed",
+        "confidence": "exact",
+        "artifact": {
+         "available": true,
+         "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+         "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+        },
+        "location": {
+         "available": true,
+         "value": {
+          "kind": "source-range",
+          "source": "main.js",
+          "start": {
+           "line": 17,
+           "column": 15
+          },
+          "end": {
+           "line": 17,
+           "column": 101
+          }
+         }
+        },
+        "extractor": {
+         "name": "rea-javascript-artifact-reconstruction",
+         "version": "1",
+         "operation": "observe-browser-window-construction",
+         "executable_sha256": null
+        },
+        "coverage": {
+         "status": "complete",
+         "truncated": false,
+         "omitted_count": 0,
+         "limits": []
+        },
+        "limitations": [
+         "Only explicitly present webPreferences are reported; omitted properties are not interpreted as Electron defaults."
+        ],
+        "evidence_ids": []
+       },
+       "observation_id": "jag_observation_dd06069580ed6c2e8faa7698cd6ce7477379326125daa2003a61664b0cd5965a",
+       "identifier_strategy": {
+        "strategy": "semantic-content-sha256",
+        "stability": "observation-exact"
+       }
+      }
+     ]
+    }
+   ],
+   "edges": [
+    {
+     "source_node_id": "jag_node_19d33534bf166561d4ec6a5e77cd42d09e5994b00da3f26d30a74d2e96fd7d01",
+     "target_node_id": "jag_node_22478b9bd2d5aeda1b88903498f2ee227d5fc41ee3aea378e2aea655520a7ca1",
+     "relation": "calls",
+     "properties": {
+      "path_id": "0e3de18e4e85a07221cc077c0378833d91da5a42e6772610f782e53d0a6ded6d",
+      "entry": "api.open",
+      "entry_path": [
+       "api",
+       "open"
+      ],
+      "channel": "open-link",
+      "resolution": "candidate",
+      "conditions": []
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+       "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "preload.js",
+        "start": {
+         "line": 4,
+         "column": 17
+        },
+        "end": {
+         "line": 4,
+         "column": 51
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "trace-electron-wrapper-path",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_0cd11efdf39122039b0fdb27d5fb240d53312c50f687c82b6fae5a9c1e812d58",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_a9344fc55f438085e777748a6677b31c02c0384a2db7a752cbb0d6fa0166f599",
+     "target_node_id": "jag_node_a1a70264394cc896633183bbe63cb604d8155be150968cc24a2bed2d8a122d5f",
+     "relation": "invokes",
+     "properties": {
+      "channel": "run-command",
+      "pairing_basis": "unique-exact-literal-channel",
+      "handler_path": "main.js",
+      "handler_operation": "handle"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+       "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "preload.js",
+        "start": {
+         "line": 3,
+         "column": 16
+        },
+        "end": {
+         "line": 3,
+         "column": 54
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "pair-ipc-literal-channel",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Literal channel equality does not prove that the handler is registered or reachable at runtime.",
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_180dc1b4c5b8d26782be9c732fbd6b28820da8daf793ff3a05e5710aff2483fd",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_f4f75d348709ce57f4648d249cf82b5b490b27965845e27b16bcacc90fd2f565",
+     "target_node_id": "jag_node_b064243988a9ae2f48aa3658026e30c6bcd2c8af193df314fee59c519a83ab51",
+     "relation": "calls",
+     "properties": {
+      "path_id": "9017c5ff4448089d031a18a001ce29adf0cb04401ea6f84ff9a6f9169383f4a4",
+      "entry": "api.run",
+      "entry_path": [
+       "api",
+       "run"
+      ],
+      "channel": "run-command",
+      "resolution": "candidate",
+      "conditions": []
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+       "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "preload.js",
+        "start": {
+         "line": 3,
+         "column": 16
+        },
+        "end": {
+         "line": 3,
+         "column": 54
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "trace-electron-wrapper-path",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_1a15a399439e6a2eb95cea65f39042e1e9e0cbe21c604c66e3e7f6f4cb90d046",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_acbf363b814083a4368ec8a1b3912dd1f9bd8e47f4c5373f2b58d0a4155bd677",
+     "target_node_id": "jag_node_b8cba4dbeae420666bbac8cfab56e8da43082ac905eae3d4a89a5639cc888747",
+     "relation": "loads",
+     "properties": {
+      "mechanism": "call:win.loadURL"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 16,
+         "column": 2
+        },
+        "end": {
+         "line": 16,
+         "column": 40
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-static-relationship",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_3237e9a1d09abed20f8c0dd59334eb9ebb328768c86c3bce2bcb2739d94fe274",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_acbf363b814083a4368ec8a1b3912dd1f9bd8e47f4c5373f2b58d0a4155bd677",
+     "target_node_id": "jag_node_9eaef056cdda528f3289e9ed72fd6403da4c3900ae7d32aa731456b1929af358",
+     "relation": "loads",
+     "properties": {
+      "mechanism": "property:preload"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 17,
+         "column": 53
+        },
+        "end": {
+         "line": 17,
+         "column": 96
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-static-relationship",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_3a4d09a590925c8c3520cdc461b0d6ac9aa2dc3bba803e784759a38e18a9b1a5",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_a6826e5e9b08e2b6814d1ab7a434d187c34603113cf94bbcf9621ae13a6f5305",
+     "target_node_id": "jag_node_7a574b0f9333a087d9d9aaecbcedf05f0bef8ec514160ddff7498d72df2ada6e",
+     "relation": "handles",
+     "properties": {
+      "channel": "open-link",
+      "channel_expression": null,
+      "resolution": "literal"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 21,
+         "column": 0
+        },
+        "end": {
+         "line": 21,
+         "column": 65
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-ipc-handler-registration",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_3cd6ee3efa1cb00f9f77acc75d6f6d828735cd75ff083f8a367726882164f5e3",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_acbf363b814083a4368ec8a1b3912dd1f9bd8e47f4c5373f2b58d0a4155bd677",
+     "target_node_id": "jag_node_28acf7e210928ca4378625c9e881b61ffdcf22738a61d2955fd103fa79edea37",
+     "relation": "loads",
+     "properties": {
+      "mechanism": "call:safe.loadFile"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 18,
+         "column": 2
+        },
+        "end": {
+         "line": 18,
+         "column": 29
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-static-relationship",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_661525f5e208d11f8e69015b89dfe626e1f8c1a9a9f5f38d6165a3104e5dec80",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_9288091733ff005f42c9e98eb0e526f07469ff5855ace7c623f1e6cc78f88efd",
+     "target_node_id": "jag_node_9eaef056cdda528f3289e9ed72fd6403da4c3900ae7d32aa731456b1929af358",
+     "relation": "loads",
+     "properties": {
+      "declared_path": "preload.js",
+      "resolution_context": "filesystem-expression",
+      "resolved_path": "preload.js",
+      "resolution_status": "resolved",
+      "limitations": []
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 5,
+         "column": 14
+        },
+        "end": {
+         "line": 15,
+         "column": 4
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "associate-browser-window-preload",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_831bbe9f47fab68b1e5a32ce2e966a191066fc8c71fa80476d8bd818a875edd6",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_acbf363b814083a4368ec8a1b3912dd1f9bd8e47f4c5373f2b58d0a4155bd677",
+     "target_node_id": "jag_node_9eaef056cdda528f3289e9ed72fd6403da4c3900ae7d32aa731456b1929af358",
+     "relation": "loads",
+     "properties": {
+      "mechanism": "property:preload"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 13,
+         "column": 6
+        },
+        "end": {
+         "line": 13,
+         "column": 49
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-static-relationship",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_b9f841bf329570988ceaa88ee81177adff6d851981cce0a69716571ee634609a",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_a9344fc55f438085e777748a6677b31c02c0384a2db7a752cbb0d6fa0166f599",
+     "target_node_id": "jag_node_27be070ab315dec36b745329f54a41e19451715fb245c3da9840e4cbf91723ef",
+     "relation": "invokes",
+     "properties": {
+      "side": "renderer",
+      "operation": "invoke",
+      "channel": "run-command",
+      "channel_expression": null,
+      "resolution": "literal"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+       "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "preload.js",
+        "start": {
+         "line": 3,
+         "column": 16
+        },
+        "end": {
+         "line": 3,
+         "column": 54
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-ipc-transmission",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_c2fa8d2afc75620b537f96fb390605ce58a909681001c1e56aa59cd20f9d63e5",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_f5d3a2d8c2e6bd8040ef52ec4106218a9b62012febc41ca4c1dc272cf21d99b7",
+     "target_node_id": "jag_node_9eaef056cdda528f3289e9ed72fd6403da4c3900ae7d32aa731456b1929af358",
+     "relation": "loads",
+     "properties": {
+      "declared_path": "preload.js",
+      "resolution_context": "filesystem-expression",
+      "resolved_path": "preload.js",
+      "resolution_status": "resolved",
+      "limitations": []
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 17,
+         "column": 15
+        },
+        "end": {
+         "line": 17,
+         "column": 101
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "associate-browser-window-preload",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_c63d396be4b73652b56e4229728b9e163bc76916657c849aed32bf938455004e",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_a9344fc55f438085e777748a6677b31c02c0384a2db7a752cbb0d6fa0166f599",
+     "target_node_id": "jag_node_7a574b0f9333a087d9d9aaecbcedf05f0bef8ec514160ddff7498d72df2ada6e",
+     "relation": "sends",
+     "properties": {
+      "side": "renderer",
+      "operation": "send",
+      "channel": "open-link",
+      "channel_expression": null,
+      "resolution": "literal"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+       "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "preload.js",
+        "start": {
+         "line": 4,
+         "column": 17
+        },
+        "end": {
+         "line": 4,
+         "column": 51
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-ipc-transmission",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_c6f39ab8d1c8c69761654e59fcb7c6f4cf005dd07e7cfa0f66a69de6b3bd1b19",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_a1a70264394cc896633183bbe63cb604d8155be150968cc24a2bed2d8a122d5f",
+     "target_node_id": "jag_node_27be070ab315dec36b745329f54a41e19451715fb245c3da9840e4cbf91723ef",
+     "relation": "handles",
+     "properties": {
+      "channel": "run-command",
+      "channel_expression": null,
+      "resolution": "literal"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 20,
+         "column": 0
+        },
+        "end": {
+         "line": 20,
+         "column": 97
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-ipc-handler-registration",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_ca65abaa3817eadc116dd3a19c15dac2fe97ce9d20d791759f5ffe635ab2b7bd",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_acbf363b814083a4368ec8a1b3912dd1f9bd8e47f4c5373f2b58d0a4155bd677",
+     "target_node_id": "jag_node_daab0487bb4c64159c765cb2af09655e3db24f505c04789215e394e6325c7790",
+     "relation": "calls",
+     "properties": {
+      "mechanism": "call:win.loadURL"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+       "sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 16,
+         "column": 2
+        },
+        "end": {
+         "line": 16,
+         "column": 40
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "map-static-relationship",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_e156c17f6daf411897b85ecd6adfb7125d394ecd28244ea9cbf2e9f71f54ecf9",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    },
+    {
+     "source_node_id": "jag_node_a9344fc55f438085e777748a6677b31c02c0384a2db7a752cbb0d6fa0166f599",
+     "target_node_id": "jag_node_a6826e5e9b08e2b6814d1ab7a434d187c34603113cf94bbcf9621ae13a6f5305",
+     "relation": "sends",
+     "properties": {
+      "channel": "open-link",
+      "pairing_basis": "unique-exact-literal-channel",
+      "handler_path": "main.js",
+      "handler_operation": "on"
+     },
+     "evidence": {
+      "authority": "static-relationship-inference",
+      "state": "inferred",
+      "confidence": "high",
+      "artifact": {
+       "available": true,
+       "artifact_id": "art_f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148",
+       "sha256": "f3025ea5a74742a2072c3ab23cd9c47f7f59244b65004a4c234345a3b0a0b148"
+      },
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "preload.js",
+        "start": {
+         "line": 4,
+         "column": 17
+        },
+        "end": {
+         "line": 4,
+         "column": 51
+        }
+       }
+      },
+      "extractor": {
+       "name": "rea-javascript-artifact-reconstruction",
+       "version": "1",
+       "operation": "pair-ipc-literal-channel",
+       "executable_sha256": null
+      },
+      "coverage": {
+       "status": "complete",
+       "truncated": false,
+       "omitted_count": 0,
+       "limits": []
+      },
+      "limitations": [
+       "Literal channel equality does not prove that the handler is registered or reachable at runtime.",
+       "Static syntax does not prove that this relationship executes at runtime."
+      ],
+      "evidence_ids": []
+     },
+     "edge_id": "jag_edge_e5d2d1139bf7caafff78799451540a1fb7db23b4a6c4a691ef2a884b9e7af14b",
+     "identifier_strategy": {
+      "strategy": "semantic-content-sha256",
+      "stability": "relationship-exact"
+     }
+    }
+   ],
+   "coverage": {
+    "status": "partial",
+    "truncated": false,
+    "omitted_count": null,
+    "limits": []
+   }
+  },
+  "summary": {
+   "browser_windows": 2,
+   "explicit_web_preferences": 6,
+   "preload_entrypoints": 2,
+   "context_bridge_apis": 1,
+   "exposed_api_members": 2,
+   "ipc": {
+    "operations": 4,
+    "literal_channels": 2,
+    "dynamic_channel_operations": 0,
+    "renderer_transmissions": 2,
+    "renderer_listeners": 0,
+    "main_handlers": 2,
+    "paired_renderer_transmissions": 2,
+    "ambiguous_renderer_transmissions": 0,
+    "unpaired_literal_renderer_transmissions": 0
+   },
+   "sender_validation_observations": 0,
+   "utility_processes": 0,
+   "resolved_utility_entrypoints": 0,
+   "native_addon_bindings": 0,
+   "resolved_native_addon_bindings": 0
+  },
+  "statistics": {
+   "relevant_files": 6,
+   "nested_asar_containers": 0,
+   "text_bytes_read": 1022,
+   "invalid_utf8_files": 0,
+   "parsed_javascript_files": 2,
+   "skipped_javascript_files": 0,
+   "visited_ast_nodes": 188,
+   "findings": 24,
+   "modules": 0,
+   "parse_failures": 0
+  },
+  "limitations": [
+   "Caller-selected source analysis leaves 4 inventoried files outside analysis scope. Inventory identity covers the complete artifact; relationships through unselected sources remain unknown.",
+   "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+   "Electron API identity follows proven lexical module aliases and structurally verified module-namespace interop. Other reassignments, dynamic selections, and visibly overwritten namespace members are unresolved; missing findings do not establish absence. Arbitrary call side effects and runtime registration are not evaluated.",
+   "Electron relationships are derived from inert syntax; runtime registration, reachability, defaults, and enforcement remain unproven.",
+   "Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.",
+   "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+   "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+   "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+   "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+  ],
+  "semantic_graph": {
+   "nodes": [
+    {
+     "kind": "child-process",
+     "identity": {
+      "artifact_sha256": "621c82510bea46201243394fedc0a61644921307739870cb8f1159da0a895560",
+      "module_path": "main.js",
+      "source_range": {
+       "start": {
+        "line": 20,
+        "column": 66
+       },
+       "end": {
+        "line": 20,
+        "column": 95
+       }
+      },
+      "role_key": "child:spawn:672:701"
+     },
+     "function_node_id": "jsrg_node_e8129e5efef1d3d94501b0c6ad5ef204305b9943858bd6e729f99243989b5ee8",
+     "application_node_ids": [],
+     "label": "exec",
+     "properties": {
+      "argv_count": null,
+      "command": null,
+      "environment_supplied": false,
+      "method": "exec",
+      "stdio_mode": "default"
+     },
+     "evidence": {
+      "context_id": "jsrg_evidence_6387df571cade52e418aaf69be7278f40bbc526cdfd535c2a759a7f07997b175",
+      "location": {
+       "available": true,
+       "value": {
+        "kind": "source-range",
+        "source": "main.js",
+        "start": {
+         "line": 20,
+         "column": 66
+        },
+        "end": {
+         "line": 20,
+         "column": 95
+        }
+       }
+      }
+     },
+     "node_id": "jsrg_node_cc51b81106149c38957b9def4367c80b05ef7afda92efb940977fa02f2cb6f3b"
+    }
+   ]
+  }
+ }
+}

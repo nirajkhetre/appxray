@@ -138,6 +138,7 @@ describe('ASAR manifests', () => {
       name: 'demo',
       productName: 'Demo App',
       version: '2.3.4',
+      main: 'main.js',
     });
   });
 

@@ -1,7 +1,7 @@
 {
   "name": "appxray",
-  "version": "0.1.0",
-  "description": "Find desktop apps on Windows and Linux that ship outdated or vulnerable embedded Chromium/Electron runtimes.",
+  "version": "0.2.0",
+  "description": "Find desktop apps on Windows and Linux that ship vulnerable embedded Chromium/Electron, and audit their Electron security with REA.",
   "license": "MIT",
   "author": "nirajkhetre",
   "homepage": "https://github.com/nirajkhetre/appxray#readme",
@@ -33,7 +33,7 @@
     "SECURITY.md"
   ],
   "engines": {
-    "node": "^22.12.0 || >=24.0.0"
+    "node": "^22.19.0 || ^24.11.0 || >=26.0.0"
   },
   "keywords": [
     "security",
@@ -45,7 +45,10 @@
     "desktop-apps",
     "windows",
     "linux",
-    "sbom"
+    "sbom",
+    "rea",
+    "reverse-engineering",
+    "electron-security"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -75,5 +78,8 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.0",
     "vitest": "5.0.5"
+  },
+  "optionalDependencies": {
+    "rea-agents": "6.7.0"
   }
 }

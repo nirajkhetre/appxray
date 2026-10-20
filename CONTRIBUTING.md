@@ -25,7 +25,8 @@ Node.js 22.12 or newer is required. Development works on Windows, Linux and macO
 | `src/db/`                       | Vulnerability database schema, builder (`db update`) and loader                                |
 | `src/analysis/`                 | Rules that turn runtime versions into findings                                                 |
 | `src/report/`                   | Text, JSON, SARIF and HTML output                                                              |
-| `src/rea/`                      | Optional, version-pinned REA cross-check                                                       |
+| `src/rea/`                      | The only place REA is invoked: locating the pinned REA, running it, parsing its output         |
+| `src/deep/`                     | Choosing the files REA analyzes and turning REA evidence into an Electron security posture     |
 | `test/unit`, `test/integration` | Fast tests with synthetic fixtures                                                             |
 | `test/real`                     | Opt-in tests against real Electron/Qt builds (`APPXRAY_REAL_FIXTURES`)                         |
 
@@ -36,6 +37,8 @@ Node.js 22.12 or newer is required. Development works on Windows, Linux and macO
 - **Never execute inspected apps.** Detection reads files only.
 - **Keep scans offline.** Network access belongs in `src/db/build.ts` only.
 - **Dependencies:** adding a runtime dependency needs a strong reason; pin exact versions.
+- **REA upgrades:** bump `rea-agents` and `REA_TESTED_RANGE` together, re-record the fixtures in
+  `test/fixtures/rea/`, and make sure `test/integration/rea-real.test.ts` passes.
 - **Windows paths:** use `path.win32` / the `platform` parameters so Windows logic is testable on any OS.
 - Run `npm run check` before opening a pull request. CI runs on Windows and Linux with Node 22 and 24.
 

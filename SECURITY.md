@@ -33,5 +33,7 @@ appxray processes untrusted input: the files of installed applications. Its safe
   only) are run without a shell, with fixed arguments, timeouts and output limits.
 - **Report safety.** HTML reports escape all values, load no external resources and set a
   restrictive Content-Security-Policy.
-- **Supply chain.** One runtime dependency, exact version pins, a committed lockfile, GitHub
-  Actions pinned to commit SHAs, and npm publishing with provenance.
+- **Supply chain.** One required runtime dependency (`semver`) plus REA as an exact-pinned
+  optional dependency, a committed lockfile, GitHub Actions pinned to commit SHAs, and npm
+  publishing with provenance. REA runs as a separate process with fixed arguments, a time
+  limit and an output limit, and its output is validated before use.

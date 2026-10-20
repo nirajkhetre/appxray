@@ -1,4 +1,5 @@
 import type { FuseWire } from '../binary/fuses.js';
+import type { DeepAnalysis } from '../deep/analyze.js';
 
 export type RuntimeKind = 'electron' | 'cef' | 'qtwebengine';
 
@@ -58,6 +59,10 @@ export interface InspectedApp {
   otherCopies: string[];
   notes: string[];
   evidence: Evidence[];
+  /** app.asar, or resources/app/package.json for unpacked apps (Electron only). */
+  appBundle?: string;
+  /** REA-powered code analysis, present with --deep. */
+  deep?: DeepAnalysis;
 }
 
 export interface SkippedPath {

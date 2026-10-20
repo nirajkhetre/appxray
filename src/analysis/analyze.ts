@@ -3,6 +3,7 @@ import semver from 'semver';
 import { fuseState } from '../binary/fuses.js';
 import type { DbAdvisory, DbKevEntry, VulnDb } from '../db/schema.js';
 import type { InspectedApp } from '../detect/types.js';
+import { deepFindings } from './deep.js';
 import { compareDotted, parseDotted } from '../util/version.js';
 import {
   maxSeverity,
@@ -384,8 +385,12 @@ export function analyzeApp(
   options: AnalyzeOptions = {},
 ): AnalyzedApp {
   const now = options.now ?? new Date();
-  const findings =
-    app.kind === 'electron' ? electronFindings(app, db, now) : embeddedChromiumFindings(app, db);
+  const findings = [
+    ...deepFindings(app),
+    ...(app.kind === 'electron'
+      ? electronFindings(app, db, now)
+      : embeddedChromiumFindings(app, db)),
+  ];
   return {
     ...app,
     findings,

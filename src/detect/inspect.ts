@@ -126,5 +126,7 @@ export async function inspectCandidate(
   if (candidate.hints.publisher) app.publisher = candidate.hints.publisher;
   if (chosen.sha256) app.binarySha256 = chosen.sha256;
   if (chosen.fuseWires[0]) app.fuses = chosen.fuseWires[0];
+  if (candidate.kind === 'electron' && candidate.manifestPath)
+    app.appBundle = candidate.manifestPath;
   return { ok: true, app };
 }

@@ -4,7 +4,9 @@ import { loadDb } from '../db/load.js';
 import { inspectCandidate } from '../detect/inspect.js';
 import type { InspectedApp, SkippedPath } from '../detect/types.js';
 import { candidatesForPaths, discoverApps, type DiscoveryResult } from '../discovery/index.js';
-import { locateRea, reaFuseEvidence, ReaUnavailableError } from '../rea/adapter.js';
+import { deepAnalyze } from '../deep/analyze.js';
+import { reaFuseEvidence } from '../rea/fuses.js';
+import { locateRea, ReaUnavailableError } from '../rea/runner.js';
 import { buildReport, type ScanReport } from '../report/model.js';
 import { mapLimit } from '../util/concurrency.js';
 import type { Logger } from '../util/log.js';
@@ -24,7 +26,14 @@ export interface AuditOptions {
   hash?: boolean;
   concurrency?: number;
   redactPaths?: boolean;
-  deep?: { reaPath?: string; allowUntested?: boolean };
+  deep?: {
+    reaPath?: string;
+    allowUntested?: boolean;
+    /** Upper bound for REA's code analysis of one app. */
+    timeoutMs?: number;
+    /** Apps analyzed by REA in parallel. Default 1: REA itself uses several cores. */
+    concurrency?: number;
+  };
   logger?: Logger;
   signal?: AbortSignal;
   now?: () => Date;
@@ -66,7 +75,7 @@ export async function runAudit(options: AuditOptions): Promise<ScanReport> {
     else skipped.push({ path: outcome.path, reason: outcome.reason });
   }
 
-  if (options.deep) await addReaEvidence(inspected, options.deep, logger);
+  if (options.deep) await addDeepAnalysis(inspected, options.deep, logger);
 
   const analyzed: AnalyzedApp[] = inspected.map((app) =>
     analyzeApp(app, loadedDb.db, { now: now() }),
@@ -84,7 +93,11 @@ export async function runAudit(options: AuditOptions): Promise<ScanReport> {
   });
 }
 
-async function addReaEvidence(
+/**
+ * REA-powered deep analysis: an independent fuse reading, and static analysis of the app's
+ * security-relevant JavaScript (windows, preload bridges, IPC, command execution).
+ */
+async function addDeepAnalysis(
   apps: InspectedApp[],
   deep: NonNullable<AuditOptions['deep']>,
   logger: Logger,
@@ -103,10 +116,24 @@ async function addReaEvidence(
     throw error;
   }
   const electronApps = apps.filter((app) => app.kind === 'electron');
-  logger.info(`Cross-checking ${electronApps.length} Electron apps with REA ${runner.version}...`);
-  for (const app of electronApps) {
+  logger.info(
+    `Analyzing ${electronApps.length} Electron ${electronApps.length === 1 ? 'app' : 'apps'} with REA ${runner.version} (${runner.origin})...`,
+  );
+  await mapLimit(electronApps, deep.concurrency ?? 1, async (app) => {
     const evidence = await reaFuseEvidence(runner, app.binary, app.fuses);
     app.evidence.push(evidence);
     if (evidence.agrees === false) app.notes.push(evidence.summary);
-  }
+    if (!app.appBundle) return;
+    logger.info(`  ${app.name}: analyzing code...`);
+    app.deep = await deepAnalyze(
+      app.appBundle,
+      runner,
+      deep.timeoutMs ? { timeoutMs: deep.timeoutMs } : {},
+    );
+    if (app.deep.error) logger.warn(`${app.name}: deep analysis incomplete: ${app.deep.error}`);
+    else
+      logger.debug(
+        `${app.name}: REA analyzed ${Object.keys(app.deep.analyzedFiles).length} files in ${app.deep.durationMs} ms`,
+      );
+  });
 }

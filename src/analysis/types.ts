@@ -43,6 +43,30 @@ export const RULES = {
     name: 'Actively exploited Chromium vulnerabilities not ruled out',
     help: 'The embedded Chromium predates fixes for known exploited vulnerabilities, but a backported fix cannot be confirmed or excluded with the available data.',
   },
+  'electron/renderer-command-execution': {
+    name: 'Web content can reach command execution',
+    help: 'REA traced a function that the preload script exposes to web pages through an IPC channel to a main-process handler that starts a process (child_process). If anything a page sends reaches that command, page content can run programs on the computer. Validate the sender and the arguments, or remove the capability.',
+  },
+  'electron/insecure-web-preferences': {
+    name: 'Insecure BrowserWindow settings',
+    help: 'Windows are created with settings that remove Electron security boundaries (for example nodeIntegration enabled, contextIsolation or webSecurity disabled). A bug or injected script in the page then gets far more power. This is most dangerous when the app loads remote content.',
+  },
+  'electron/raw-ipc-bridge': {
+    name: 'Preload exposes IPC with caller-chosen channels',
+    help: 'The preload bridge forwards IPC messages on channels chosen by the page, so page code can talk to any main-process handler instead of a fixed allowlist.',
+  },
+  'electron/ipc-sender-not-validated': {
+    name: 'IPC handlers without sender checks',
+    help: 'The app loads remote content and handles IPC messages, but no check of the message sender (event.senderFrame or webContents id) was found. Any frame that can send IPC can then use those handlers.',
+  },
+  'electron/insecure-remote-content': {
+    name: 'Remote content over plain HTTP',
+    help: 'The app loads content over unencrypted http://, so anyone on the network path can replace it with their own script.',
+  },
+  'deep/limited-coverage': {
+    name: 'Code analysis was partial',
+    help: 'REA could not analyze all of the selected code (minified bundles, dynamic code, parse failures or time limits). Missing findings do not prove absence.',
+  },
   'electron/unknown-version': {
     name: 'Unrecognized Electron version',
     help: 'The Electron version is not in the vulnerability database. It may be a custom build or newer than the database.',

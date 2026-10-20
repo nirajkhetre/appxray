@@ -1,4 +1,4 @@
-import { runtimeLabel, type ScanReport } from './model.js';
+import { deepSummary, runtimeLabel, type ScanReport } from './model.js';
 
 const escapeHtml = (value: string) =>
   value
@@ -77,6 +77,7 @@ ${finding.references.length > 0 ? `<ul>${finding.references.map((ref) => `<li>${
 <div class="path">${escapeHtml(app.binary)}${app.binarySha256 ? `<br>sha256 ${app.binarySha256}` : ''}</div>
 ${findings}
 ${app.notes.map((note) => `<p class="meta">Note: ${escapeHtml(note)}</p>`).join('')}
+${deepSummary(app) ? `<p class="meta">${escapeHtml(deepSummary(app) ?? '')}</p>` : ''}
 ${app.evidence.map((item) => `<p class="meta">${escapeHtml(`${item.provider} ${item.providerVersion ?? ''}: ${item.summary}`)}</p>`).join('')}
 </details>`;
     })

@@ -35,6 +35,9 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: npm run test:coverage
+        env:
+          # The real-REA contract test must run, not skip, in CI.
+          APPXRAY_REQUIRE_REA: '1'
       - run: npm run build
       - name: Smoke test the CLI
         run: |
@@ -75,6 +78,8 @@ jobs:
         run: npm run test:real
         env:
           APPXRAY_REAL_FIXTURES: ${{ runner.temp }}/real
+      - name: Deep analysis with the bundled REA on real Electron builds
+        run: node dist/cli.js inspect "${{ runner.temp }}/real" --deep --min-severity info --no-color
       - name: End-of-life Electron must fail --fail-on high
         shell: bash
         run: |

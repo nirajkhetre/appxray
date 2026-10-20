@@ -1,5 +1,5 @@
 import type { Severity } from '../analysis/types.js';
-import { runtimeLabel, type ScanReport } from './model.js';
+import { deepSummary, runtimeLabel, type ScanReport } from './model.js';
 
 export interface TextOptions {
   color: boolean;
@@ -129,6 +129,8 @@ export function formatText(report: ScanReport, options: TextOptions): string {
           out.push(paint('dim', wrap(finding.detail, width - 11, '           ')));
         }
         for (const note of app.notes) out.push(paint('dim', `  note: ${note}`));
+        const deep = deepSummary(app);
+        if (deep) out.push(paint('dim', `  ${deep}`));
         for (const item of app.evidence) {
           out.push(
             paint('dim', `  ${item.provider} ${item.providerVersion ?? ''}: ${item.summary}`),
