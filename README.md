@@ -43,7 +43,7 @@ Requires [Node.js](https://nodejs.org/) 22.12 or newer.
 The project is not on npm yet, so install it from source:
 
 ```powershell
-git clone https://github.com/<you>/appxray.git
+git clone https://github.com/saurabhkhetre/appxray.git
 cd appxray
 npm ci
 npm run build

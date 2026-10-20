@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "description": "Find desktop apps on Windows and Linux that ship outdated or vulnerable embedded Chromium/Electron runtimes.",
   "license": "MIT",
+  "author": "saurabhkhetre",
+  "homepage": "https://github.com/saurabhkhetre/appxray#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saurabhkhetre/appxray.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saurabhkhetre/appxray/issues"
+  },
   "type": "module",
   "bin": {
     "appxray": "dist/cli.js"
