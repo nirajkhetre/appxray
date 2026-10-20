@@ -5,7 +5,7 @@ Thanks for helping. Bug reports, detection improvements and new data sources are
 ## Development setup
 
 ```sh
-git clone https://github.com/saurabhkhetre/appxray.git
+git clone https://github.com/nirajkhetre/appxray.git
 cd appxray
 npm ci
 npm run check      # typecheck, lint, formatting and tests
